@@ -1,0 +1,32 @@
+name: "My Composite Action"
+description: "A reusable action that prints a greeting and lists files"
+author: "Your Name"
+
+inputs:
+  name:
+    description: "Name of the person to greet"
+    required: true
+    default: "World"
+
+outputs:
+  message:
+    description: "The greeting message"
+    value: ${{ steps.greet.outputs.message }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Print a Greeting
+      id: greet
+      run: echo "Hello, ${{ inputs.name }}!" && echo "message=Hello, ${{ inputs.name }}!" >> $GITHUB_ENV
+      shell: bash
+
+    - name: List Files in Repository
+      run: ls -la
+      shell: bash
+
+
+# Unlike JavaScript or Docker-based actions, composite actions directly run shell commands.
+# Each step can run shell commands (bash, cmd, or powershell)
+# Reusing multiple shell commands
+# Running in different shell environments

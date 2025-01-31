@@ -1,0 +1,23 @@
+name: JavaScript Custom Action Example
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  run-custom-js-action:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run custom JavaScript action
+        uses: ./actions/custom-js-action  # Local action inside the repo
+        with:
+          name: "GitHub User"
+

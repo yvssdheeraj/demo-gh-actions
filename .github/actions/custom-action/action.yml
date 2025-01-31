@@ -1,0 +1,27 @@
+# name: "My Custom Action"
+# description: "A sample GitHub Action"
+# author: "Your Name"
+# inputs:      # Define input parameters
+# outputs:     # Define output parameters
+# runs:        # Define how the action runs
+# branding:    # (Optional) Set an icon and color for Marketplace
+
+
+name: "Greet Action"
+description: "A custom GitHub Action to print greetings"
+author: "Your Name"
+branding:
+  icon: "smile"
+  color: "blue"
+inputs:
+  name:
+    description: "Name of the person"
+    required: true
+    default: "GitHub User"
+outputs:
+  greeting:
+    description: "Greeting message"
+runs:
+  using: "node16"
+  main: "index.js"
+

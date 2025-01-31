@@ -1,0 +1,14 @@
+name: "Custom JavaScript Action"
+description: "A custom GitHub Action inside the same repo using JavaScript"
+inputs:
+  name:
+    description: "Your name"
+    required: true
+    default: "World"
+runs:
+  using: "node20"
+  main: "index.js"
+
+# Install dependencies before committing:
+# If you need extra npm packages, you can define them here.
+# Run npm install @actions/core inside the actions/custom-js-action/ folder.

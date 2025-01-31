@@ -1,0 +1,35 @@
+name: Dynamic Matrix Build
+
+on: [push]
+
+jobs:
+  generate-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: Generate Matrix Data
+        id: set-matrix
+        run: |
+          MATRIX_JSON=$(echo '{"os":["ubuntu-latest","macos-latest","windows-latest"],"node":["14","16","18"]}' | jq -c)
+          echo "matrix=$MATRIX_JSON" >> $GITHUB_ENV
+          echo "::set-output name=matrix::$MATRIX_JSON"
+
+  matrix-build:
+    needs: generate-matrix
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix: ${{ fromJson(needs.generate-matrix.outputs.matrix) }}
+      fail-fast: false  # Optional: Continue running if one job fails
+    steps:
+      - name: Show Configuration
+        run: echo "Running on ${{ matrix.os }} with Node.js ${{ matrix.node }}"
+
+# steps:
+#  - name: Install Dependencies (Linux/macOS)
+#    if: runner.os != 'Windows'
+#    run: npm install
+#
+#  - name: Install Dependencies (Windows)
+#    if: runner.os == 'Windows'
+#    run: npm install --force
