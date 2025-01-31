@@ -17,6 +17,6 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run custom Docker action
-        uses: ./actions/custom-docker-action  # Local action inside the repo
+        uses: custom-docker-action  # Local action inside the repo
         with:
           name: "GitHub User"
